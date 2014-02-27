@@ -1,4 +1,0 @@
-qproject
-========
-
-QProject Enterprise Framework
