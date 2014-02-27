@@ -1,0 +1,84 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{74445618-F8F7-40CE-8CD9-73D9D1157C47}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Common</RootNamespace>
+    <AssemblyName>Common</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Binding\BindableObject.cs" />
+    <Compile Include="Collections\ArrayExtension.cs" />
+    <Compile Include="Collections\DictionaryExtension.cs" />
+    <Compile Include="Collections\DictionaryWrapper.cs" />
+    <Compile Include="Collections\LimitedQueue.cs" />
+    <Compile Include="Configuration\ConfigurationElementCollectionBase.cs" />
+    <Compile Include="Configuration\ConfigurationHelper.cs" />
+    <Compile Include="Conversion\ConverterFactory.cs" />
+    <Compile Include="Conversion\IConverter.cs" />
+    <Compile Include="Conversion\RegexConverter.cs" />
+    <Compile Include="Exceptions\ExceptionExtension.cs" />
+    <Compile Include="Configuration\KeyValueConfigurationCollectionWrapper.cs" />
+    <Compile Include="IO\PathHepler.cs" />
+    <Compile Include="IO\TextFile.cs" />
+    <Compile Include="Comparing\MultiCompare.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Reflection\TypeLoader.cs" />
+    <Compile Include="ServiceModel\ICommand.cs" />
+    <Compile Include="ServiceModel\IFactory.cs" />
+    <Compile Include="ServiceModel\IFactory2.cs" />
+    <Compile Include="ServiceModel\IInitableService.cs" />
+    <Compile Include="ServiceModel\IParametrizedCommand.cs" />
+    <Compile Include="ServiceModel\IService.cs" />
+    <Compile Include="ServiceModel\Tasks\ITask.cs" />
+    <Compile Include="ServiceModel\Tasks\ProcessEventArgs.cs" />
+    <Compile Include="Strings\RegexValidator.cs" />
+    <Compile Include="Strings\Transliteration\CyrillicToLatinProvider.cs" />
+    <Compile Include="Strings\Transliteration\ITransliterationProvider.cs" />
+    <Compile Include="Strings\RegexMapper.cs" />
+    <Compile Include="Strings\StringParser.cs" />
+    <Compile Include="Strings\Transliteration\Transliteration.cs" />
+    <Compile Include="Strings\Transliteration\DictionaryTransliteProvider.cs" />
+    <Compile Include="WinAPI\UNC.cs" />
+    <Compile Include="XML\XmlSerialize.cs" />
+    <Compile Include="XML\XSLInMemoryTransform.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
