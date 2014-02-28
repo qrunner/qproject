@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Common.DPL.ThreadParallel
+namespace AppServer.Management
 {
-    class ThreadContextRunner
+    public class Class1
     {
     }
 }

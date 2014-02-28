@@ -2,7 +2,7 @@
 
 namespace Common.DPL.TaskParallel
 {
-    public class Processor<T> : TaskProcessorBase<T> where T : IEquatable<T>
+   /* public class Processor<T> : TaskProcessorBase<T> where T : IEquatable<T>
     {
         private readonly Action<IBag<T>> _task;
 
@@ -16,5 +16,5 @@ namespace Common.DPL.TaskParallel
             var item = Pipeline.TakeForProcess();
             System.Threading.Tasks.Task.Factory.StartNew(obj => _task(item), null);
         }
-    }
+    }*/
 }

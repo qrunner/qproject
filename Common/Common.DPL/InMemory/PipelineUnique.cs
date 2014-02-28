@@ -4,7 +4,7 @@ using System.Threading;
 
 namespace Common.DPL.InMemory
 {
-    public class Pipeline<T> : IPipeline<T>, IDisposable
+    public class PipelineUnique<T> : IPipeline<T>, IDisposable
         where T : IEquatable<T>
     {
         private readonly Queue<IBag<T>> _queue = new Queue<IBag<T>>();
@@ -13,14 +13,14 @@ namespace Common.DPL.InMemory
         private readonly object _addSyncRoot = new object();
         private readonly Timer _wakeUpDelayedTimer;
 
-        public Pipeline(int delayedWakeUpTimeout)
+        public PipelineUnique(int delayedWakeUpTimeout)
         {
             _wakeUpDelayedTimer = new Timer(x => WakeUpDelayed(), null, delayedWakeUpTimeout, delayedWakeUpTimeout);
         }
 
         public bool TryAdd(T item)
         {
-            var itemBag = new Bag<T>(this, item);
+            var itemBag = new BagEquatable<T>(this, item);
             lock (_queue)
             {
                 if (!_queue.Contains(itemBag) && !_inProcess.Contains(itemBag) && !_delayed.Contains(itemBag))

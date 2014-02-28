@@ -4,15 +4,16 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{A3848C2D-B812-473F-9D29-2B250DA0BE90}</ProjectGuid>
-    <OutputType>Library</OutputType>
+    <ProjectGuid>{005427E6-D904-4404-AF7B-EA81217A0E5C}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Common.DPL</RootNamespace>
-    <AssemblyName>Common.DPL</AssemblyName>
+    <RootNamespace>AppServer.Host</RootNamespace>
+    <AssemblyName>AppServer.Host</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -22,6 +23,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -30,43 +32,28 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="System" />
+    <Reference Include="System">
+      <HintPath>..\..\..\..\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.0\System.dll</HintPath>
+    </Reference>
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
+    <Reference Include="System.ServiceProcess">
+      <HintPath>..\..\..\..\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.0\System.ServiceProcess.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="InMemory\BagEquatable.cs" />
-    <Compile Include="IBag.cs" />
-    <Compile Include="InMemory\PipelineUnique.cs" />
-    <Compile Include="IParallelRunner.cs" />
-    <Compile Include="IPipeline.cs" />
-    <Compile Include="IRunner.cs" />
-    <Compile Include="IThreadListener.cs" />
-    <Compile Include="IThreadListenerFactory.cs" />
-    <Compile Include="IThreadProcessor.cs" />
-    <Compile Include="IThreadProcessorFactory.cs" />
-    <Compile Include="TaskParallel\Processor.cs" />
-    <Compile Include="TaskParallel\TaskProcessorBase.cs" />
-    <Compile Include="TaskParallel\Listener.cs" />
-    <Compile Include="TaskParallel\TaskQueueSystem.cs" />
-    <Compile Include="ThreadParallel\Listener.cs" />
-    <Compile Include="ObjectState.cs" />
-    <Compile Include="ThreadParallel\OneActionFactory.cs" />
-    <Compile Include="ThreadParallel\Processor.cs" />
+    <Compile Include="Service1.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Service1.Designer.cs">
+      <DependentUpon>Service1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="QueueSystem.cs" />
-    <Compile Include="ThreadParallel\ThreadQueueSystem.cs" />
-    <Compile Include="ThreadParallel\ActionRunner.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Common\Common.csproj">
-      <Project>{74445618-F8F7-40CE-8CD9-73D9D1157C47}</Project>
-      <Name>Common</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

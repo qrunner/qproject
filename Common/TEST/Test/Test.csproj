@@ -4,15 +4,16 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{A3848C2D-B812-473F-9D29-2B250DA0BE90}</ProjectGuid>
-    <OutputType>Library</OutputType>
+    <ProjectGuid>{987777F3-2CF7-4940-B21D-D47FD081EC3F}</ProjectGuid>
+    <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Common.DPL</RootNamespace>
-    <AssemblyName>Common.DPL</AssemblyName>
+    <RootNamespace>Test</RootNamespace>
+    <AssemblyName>Test</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -22,6 +23,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -39,32 +41,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="InMemory\BagEquatable.cs" />
-    <Compile Include="IBag.cs" />
-    <Compile Include="InMemory\PipelineUnique.cs" />
-    <Compile Include="IParallelRunner.cs" />
-    <Compile Include="IPipeline.cs" />
-    <Compile Include="IRunner.cs" />
-    <Compile Include="IThreadListener.cs" />
-    <Compile Include="IThreadListenerFactory.cs" />
-    <Compile Include="IThreadProcessor.cs" />
-    <Compile Include="IThreadProcessorFactory.cs" />
-    <Compile Include="TaskParallel\Processor.cs" />
-    <Compile Include="TaskParallel\TaskProcessorBase.cs" />
-    <Compile Include="TaskParallel\Listener.cs" />
-    <Compile Include="TaskParallel\TaskQueueSystem.cs" />
-    <Compile Include="ThreadParallel\Listener.cs" />
-    <Compile Include="ObjectState.cs" />
-    <Compile Include="ThreadParallel\OneActionFactory.cs" />
-    <Compile Include="ThreadParallel\Processor.cs" />
+    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="QueueSystem.cs" />
-    <Compile Include="ThreadParallel\ThreadQueueSystem.cs" />
-    <Compile Include="ThreadParallel\ActionRunner.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Common\Common.csproj">
-      <Project>{74445618-F8F7-40CE-8CD9-73D9D1157C47}</Project>
+    <ProjectReference Include="..\..\Common.DPL\Common.DPL.csproj">
+      <Project>{a3848c2d-b812-473f-9d29-2b250da0be90}</Project>
+      <Name>Common.DPL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Common\Common.csproj">
+      <Project>{74445618-f8f7-40ce-8cd9-73d9d1157c47}</Project>
       <Name>Common</Name>
     </ProjectReference>
   </ItemGroup>

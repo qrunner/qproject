@@ -3,12 +3,12 @@ using System.Diagnostics;
 
 namespace Common.DPL.InMemory
 {
-    internal class Bag<T> : IBag<T> where T:IEquatable<T>
+    internal class BagEquatable<T> : IBag<T> where T:IEquatable<T>
     {
         private Stopwatch _stw;
-        private readonly Pipeline<T> _pipeline;
+        private readonly PipelineUnique<T> _pipeline;
 
-        public Bag(Pipeline<T> pipeline, T item)
+        public BagEquatable(PipelineUnique<T> pipeline, T item)
         {
             Object = item;
             _pipeline = pipeline;
@@ -16,7 +16,7 @@ namespace Common.DPL.InMemory
 
         public bool Equals(IBag<T> other)
         {
-            return this.Object.Equals(other.Object);
+            return Object.Equals(other.Object);
         }
 
         public T Object { get; private set; }

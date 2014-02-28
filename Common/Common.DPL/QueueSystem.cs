@@ -2,7 +2,7 @@
 
 namespace Common.DPL
 {
-    public class QueueSystem<T> where T : IEquatable<T>
+    public class QueueSystem<T> : IRunner where T : IEquatable<T>
     {
         private readonly IParallelRunner _listener;
         private readonly IParallelRunner _processor;
@@ -27,14 +27,14 @@ namespace Common.DPL
 
         public int ListenerParallelizm
         {
-            get { return _listener.Parallelizm; }
-            set { _listener.Parallelizm = value; }
+            get { return _listener.ThreadsCount; }
+            set { _listener.ThreadsCount = value; }
         }
 
         public int ProcessorParallelizm
         {
-            get { return _processor.Parallelizm; }
-            set { _processor.Parallelizm = value; }
+            get { return _processor.ThreadsCount; }
+            set { _processor.ThreadsCount = value; }
         }
     }
 }

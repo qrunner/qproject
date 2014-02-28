@@ -9,9 +9,9 @@ namespace Common.DPL.ThreadParallel
     /// <summary>
     /// Выполняет заданное действие циклически в нескольких потоках
     /// </summary>
-    public class ActionRunner : IParallelRunner, IDisposable
+    public sealed class ActionRunner : IParallelRunner, IDisposable
     {
-        private struct ThreadInfo : IRunner
+        private class ThreadInfo : IRunner
         {
             public ThreadInfo(ParameterizedThreadStart threadStart, Action action)
             {
@@ -32,60 +32,64 @@ namespace Common.DPL.ThreadParallel
             public void Start()
             {
                 Thread.Start(this);
+                // Loop until the worker thread activates.
+                while (!Thread.IsAlive)
+                {
+                    
+                }
             }
         }
 
-        protected class OneActionFactory : IFactory<Action>
-        {
-            private readonly Action _action;
-
-            public OneActionFactory(Action action)
-            {
-                _action = action;
-            }
-
-            public Action Create()
-            {
-                return _action;
-            }
-        }
-
-        protected IFactory<Action> ActionFactory;
+        private readonly IFactory<Action> _actionFactory;
+        private readonly int _stopTimeout;
         private bool _started = false;
-        private readonly List<ThreadInfo> _threads = new List<ThreadInfo>();
+        private readonly List<ThreadInfo> _threadInfos = new List<ThreadInfo>();
 
-        protected ActionRunner()
+        /// <summary>
+        /// Создает новый экземпляр
+        /// </summary>
+        /// <param name="action">Действие. Все исключения должны обрабатываться внутри!</param>
+        /// <param name="stopTimeout">Таймаут при остановке потоков. Для бесконечного ожидания можно передать Timeout.Infinite</param>
+        public ActionRunner(Action action, int stopTimeout) : this(new OneActionFactory(action), stopTimeout)
         {
-
         }
 
-        public ActionRunner(Action action)
+        /// <summary>
+        /// Создает новый экземпляр
+        /// </summary>
+        /// <param name="actionFactory">Фабрика задач. Используется при создания задачи для потока.</param>
+        /// <param name="stopTimeout">Таймаут при остановке потоков. Для бесконечного ожидания можно передать Timeout.Infinite</param>
+        public ActionRunner(IFactory<Action> actionFactory, int stopTimeout)
         {
-            ActionFactory = new OneActionFactory(action);
-        }
-
-        public ActionRunner(IFactory<Action> actionFactory)
-        {
-            ActionFactory = actionFactory;
+            _actionFactory = actionFactory;
+            _stopTimeout = stopTimeout;
         }
 
         private static void MainLoop(object threadInfo)
         {
-            ThreadInfo ti = (ThreadInfo)threadInfo;
+            ThreadInfo ti = (ThreadInfo) threadInfo;
             while (ti.Run)
+            {
                 ti.Action();
+            }
         }
 
         public void Start()
         {
-            foreach (var ti in _threads.Where(ti => ti.Thread.ThreadState == ThreadState.Unstarted))
+            foreach (var ti in _threadInfos.Where(ti => ti.Thread.ThreadState == ThreadState.Unstarted))
                 ti.Start();
             _started = true;
+        }
+        
+        public void Start(int threadsCount)
+        {
+            ThreadsCount = threadsCount;
+            Start();
         }
 
         public void Stop()
         {
-            Parallelizm = 0;
+            ThreadsCount = 0;
             _started = false;
         }
 
@@ -96,29 +100,29 @@ namespace Common.DPL.ThreadParallel
 
         private void AddThread()
         {
-            ThreadInfo ti = new ThreadInfo(MainLoop, ActionFactory.Create());
-            _threads.Add(ti);
+            ThreadInfo ti = new ThreadInfo(MainLoop, _actionFactory.Create());
+            _threadInfos.Add(ti);
             if (_started)
                 ti.Start();
         }
 
         private void RemoveThread()
         {
-            if (_threads.Count == 0) return;
-            
-            _threads[0].Thread.Join();
-            if (_threads[0].Thread.IsAlive)
-                _threads[0].Thread.Abort();
-            _threads.RemoveAt(0);
+            if (_threadInfos.Count == 0) return;
+
+            _threadInfos[0].Thread.Join(_stopTimeout);
+            if (_threadInfos[0].Thread.IsAlive)
+                _threadInfos[0].Thread.Abort();
+            _threadInfos.RemoveAt(0);
         }
 
-        public int Parallelizm
+        public int ThreadsCount
         {
-            get { return _threads.Count; }
+            get { return _threadInfos.Count; }
             set
             {
                 if (value < 0) throw new ArgumentOutOfRangeException("value");
-                int delta = value - _threads.Count;
+                int delta = value - _threadInfos.Count;
                 if (delta == 0) return;
                 if (delta > 0)
                 {
@@ -127,8 +131,9 @@ namespace Common.DPL.ThreadParallel
                 }
                 else
                 {
+                    delta = -delta;
                     for (int i = 0; i < delta; i++)
-                        _threads[i].Stop();
+                        _threadInfos[i].Stop();
 
                     for (int i = 0; i < delta; i++)
                         RemoveThread();

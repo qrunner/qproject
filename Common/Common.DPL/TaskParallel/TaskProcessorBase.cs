@@ -3,7 +3,7 @@ using Common.DPL.ThreadParallel;
 
 namespace Common.DPL.TaskParallel
 {
-    public abstract class TaskProcessorBase<T> : IParallelRunner where T : IEquatable<T>
+    /*public abstract class TaskProcessorBase<T> : IParallelRunner where T : IEquatable<T>
     {
         protected IPipeline<T> Pipeline;
         private readonly ActionRunner _runner;
@@ -11,10 +11,10 @@ namespace Common.DPL.TaskParallel
         protected TaskProcessorBase(IPipeline<T> pipeline)
         {
             Pipeline = pipeline;
-            _runner = new ActionRunner(Process) {Parallelizm = 1};
+            _runner = new ActionRunner(Process) {ThreadsCount = 1};
         }
 
-        public int Parallelizm { get; set; }
+        public int ThreadsCount { get; set; }
 
         protected abstract void Process();
 
@@ -27,5 +27,5 @@ namespace Common.DPL.TaskParallel
         {
             _runner.Stop();
         }
-    }
+    }*/
 }

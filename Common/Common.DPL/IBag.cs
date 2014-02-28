@@ -6,7 +6,7 @@ namespace Common.DPL
     /// Transport for object and processing management entry point
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    public interface IBag<T> : IEquatable<IBag<T>>
+    public interface IBag<out T>
     {
         /// <summary>
         /// Обрабатываемый объект

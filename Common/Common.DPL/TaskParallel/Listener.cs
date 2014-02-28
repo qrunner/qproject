@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 namespace Common.DPL.TaskParallel
 {
-    public class Listener<T> : TaskProcessorBase<T> where T : IEquatable<T>
+   /* public class Listener<T> : TaskProcessorBase<T> where T : IEquatable<T>
     {
         private readonly Func<IEnumerable<T>> _loadTask;
         private readonly int _reloadTimeout;
@@ -29,5 +29,5 @@ namespace Common.DPL.TaskParallel
                     }, null);
             }
         }
-    }
+    }*/
 }
